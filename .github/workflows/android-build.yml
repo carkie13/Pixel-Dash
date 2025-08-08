@@ -3,7 +3,8 @@ name: Android Build
 on:
   push:
     branches:
-      - main   # or your default branch
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,7 +21,10 @@ jobs:
         distribution: 'temurin'
         java-version: 11
 
-    - name: Download Dependencies and Build
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+
+    - name: Build app bundle
       run: ./gradlew bundleRelease
 
     - name: Upload AAB Artifact
